@@ -1,0 +1,219 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Actuator",
+		"_postman_id": "3f859cd5-c46a-f1b8-0d1b-499c8e0a6bd6",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET HEALTH",
+			"request": {
+				"url": "http://localhost:8888/actuator/health",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"pauta1\",\n\t\"votos\": [\n\t\t{\n\t\t\t\"cpf\": 123,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 456,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 789,\n\t\t\t\"mensagemVoto\": \"NAO\"\n\t\t}\n\t\t\n\t]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET INFO",
+			"request": {
+				"url": "http://localhost:8888/actuator/info",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"pauta1\",\n\t\"votos\": [\n\t\t{\n\t\t\t\"cpf\": 123,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 456,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 789,\n\t\t\t\"mensagemVoto\": \"NAO\"\n\t\t}\n\t\t\n\t]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET METRICS",
+			"request": {
+				"url": "http://localhost:8888/actuator/metrics",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"pauta1\",\n\t\"votos\": [\n\t\t{\n\t\t\t\"cpf\": 123,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 456,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 789,\n\t\t\t\"mensagemVoto\": \"NAO\"\n\t\t}\n\t\t\n\t]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET SPECIFIC METRIC",
+			"request": {
+				"url": "http://localhost:8888/actuator/metrics",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"pauta1\",\n\t\"votos\": [\n\t\t{\n\t\t\t\"cpf\": 123,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 456,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 789,\n\t\t\t\"mensagemVoto\": \"NAO\"\n\t\t}\n\t\t\n\t]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET LOGGERS",
+			"request": {
+				"url": "http://localhost:8888/actuator/metrics",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"pauta1\",\n\t\"votos\": [\n\t\t{\n\t\t\t\"cpf\": 123,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 456,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 789,\n\t\t\t\"mensagemVoto\": \"NAO\"\n\t\t}\n\t\t\n\t]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET ENVIRONMENT",
+			"request": {
+				"url": "http://localhost:8888/actuator/env",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"pauta1\",\n\t\"votos\": [\n\t\t{\n\t\t\t\"cpf\": 123,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 456,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 789,\n\t\t\t\"mensagemVoto\": \"NAO\"\n\t\t}\n\t\t\n\t]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET ENVIRONMENT BEANS",
+			"request": {
+				"url": "http://localhost:8888/actuator/beans",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"pauta1\",\n\t\"votos\": [\n\t\t{\n\t\t\t\"cpf\": 123,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 456,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 789,\n\t\t\t\"mensagemVoto\": \"NAO\"\n\t\t}\n\t\t\n\t]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET THREAD DUMP",
+			"request": {
+				"url": "http://localhost:8888/actuator/threaddump",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"pauta1\",\n\t\"votos\": [\n\t\t{\n\t\t\t\"cpf\": 123,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 456,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 789,\n\t\t\t\"mensagemVoto\": \"NAO\"\n\t\t}\n\t\t\n\t]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
