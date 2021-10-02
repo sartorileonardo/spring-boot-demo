@@ -1,0 +1,56 @@
+{
+	"variables": [],
+	"info": {
+		"name": "APACHE KAFKA",
+		"_postman_id": "13787024-0633-f14a-a6a8-d5fa6052b5f7",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SEND MESSAGE KAFKA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var responseJSON;",
+							"try {",
+							"    responseJSON = JSON.parse(responseBody); ",
+							"    tests[\"Status equals 201\"] = responseJSON.status === 201;",
+							"}",
+							"catch (e) { }",
+							"tests[\"Body contains status\"] = responseBody.has(\"status\");",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/api/kafka",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\n\t  \"text\": \"hello Kafka\"\n\t}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
