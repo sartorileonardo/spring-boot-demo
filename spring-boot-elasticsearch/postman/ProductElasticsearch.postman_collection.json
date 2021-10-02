@@ -1,0 +1,496 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Product Elasticsearch",
+		"_postman_id": "ce40d9db-0873-f9ca-a584-9f0d39705ec2",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET ALL",
+			"request": {
+				"url": "http://localhost:8080/product/",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"pauta1\",\n\t\"votos\": [\n\t\t{\n\t\t\t\"cpf\": 123,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 456,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 789,\n\t\t\t\"mensagemVoto\": \"NAO\"\n\t\t}\n\t\t\n\t]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET BY ID",
+			"request": {
+				"url": "http://localhost:8888/v1/books/612afa371d094850e801fd72",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"pauta1\",\n\t\"votos\": [\n\t\t{\n\t\t\t\"cpf\": 123,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 456,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 789,\n\t\t\t\"mensagemVoto\": \"NAO\"\n\t\t}\n\t\t\n\t]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET BY NAME",
+			"request": {
+				"url": "http://localhost:8080/product/findByName/tv",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"pauta1\",\n\t\"votos\": [\n\t\t{\n\t\t\t\"cpf\": 123,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 456,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 789,\n\t\t\t\"mensagemVoto\": \"NAO\"\n\t\t}\n\t\t\n\t]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET BY CONTAINS NAME",
+			"request": {
+				"url": "http://localhost:8080/product/findByContainsName/",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"pauta1\",\n\t\"votos\": [\n\t\t{\n\t\t\t\"cpf\": 123,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 456,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 789,\n\t\t\t\"mensagemVoto\": \"NAO\"\n\t\t}\n\t\t\n\t]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET BY LIKE NAME",
+			"request": {
+				"url": "http://localhost:8080/product/findByContainsName/",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"pauta1\",\n\t\"votos\": [\n\t\t{\n\t\t\t\"cpf\": 123,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 456,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 789,\n\t\t\t\"mensagemVoto\": \"NAO\"\n\t\t}\n\t\t\n\t]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET BY LIKE NAME WITH NATIVE QUERY",
+			"request": {
+				"url": "http://localhost:8080/product/findByContainsName/",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"pauta1\",\n\t\"votos\": [\n\t\t{\n\t\t\t\"cpf\": 123,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 456,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 789,\n\t\t\t\"mensagemVoto\": \"NAO\"\n\t\t}\n\t\t\n\t]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET BY LIKE NAME WITH STRING QUERY",
+			"request": {
+				"url": "http://localhost:8080/product/findProductsWithStringQuery/tv",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"pauta1\",\n\t\"votos\": [\n\t\t{\n\t\t\t\"cpf\": 123,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 456,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 789,\n\t\t\t\"mensagemVoto\": \"NAO\"\n\t\t}\n\t\t\n\t]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET SUGGESTIONS BY NAME",
+			"request": {
+				"url": "http://localhost:8080/product/findSuggestionsByName/tv",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"pauta1\",\n\t\"votos\": [\n\t\t{\n\t\t\t\"cpf\": 123,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 456,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 789,\n\t\t\t\"mensagemVoto\": \"NAO\"\n\t\t}\n\t\t\n\t]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET BY NAME OR PRICE",
+			"request": {
+				"url": "http://localhost:8080/product/findByName/tv",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"pauta1\",\n\t\"votos\": [\n\t\t{\n\t\t\t\"cpf\": 123,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 456,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 789,\n\t\t\t\"mensagemVoto\": \"NAO\"\n\t\t}\n\t\t\n\t]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET BY BETWEEN PRICE",
+			"request": {
+				"url": "http://localhost:8080/product/findByBetweenPrice/1500/1900",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"pauta1\",\n\t\"votos\": [\n\t\t{\n\t\t\t\"cpf\": 123,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 456,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 789,\n\t\t\t\"mensagemVoto\": \"NAO\"\n\t\t}\n\t\t\n\t]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "ADD PRODUCT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var responseJSON;",
+							"try {",
+							"    responseJSON = JSON.parse(responseBody); ",
+							"    tests[\"Status equals 201\"] = responseJSON.status === 201;",
+							"}",
+							"catch (e) { }",
+							"tests[\"Body contains status\"] = responseBody.has(\"status\");",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/product/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\n\t  \"id\": 1,\n\t  \"name\": \"TV\",\n\t  \"count\": 5,\n\t  \"price\": 1500.90\n\t}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "ADD PRODUCTS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var responseJSON;",
+							"try {",
+							"    responseJSON = JSON.parse(responseBody); ",
+							"    tests[\"Status equals 201\"] = responseJSON.status === 201;",
+							"}",
+							"catch (e) { }",
+							"tests[\"Body contains status\"] = responseBody.has(\"status\");",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/product/saveAll",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n\t{\n\t  \"id\": 1,\n\t  \"name\": \"TV\",\n\t  \"count\": 5,\n\t  \"price\": 1500.75\n\t},\n\t{\n\t  \"id\": 2,\n\t  \"name\": \"Tablet XPTO\",\n\t  \"count\": 2,\n\t  \"price\": 1800.95\n\t},\n\t{\n\t  \"id\": 3,\n\t  \"name\": \"Notebook ABC\",\n\t  \"count\": 3,\n\t  \"price\": 5300.25\n\t}\n]"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE PRODUCT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var responseJSON;",
+							"try {",
+							"    responseJSON = JSON.parse(responseBody); ",
+							"    tests[\"Status equals 201\"] = responseJSON.status === 201;",
+							"}",
+							"catch (e) { }",
+							"tests[\"Body contains status\"] = responseBody.has(\"status\");",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/product/1",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\n\t  \"id\": 1,\n\t  \"name\": \"TV\",\n\t  \"count\": 5,\n\t  \"price\": 1630.90\n\t}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE PRODUCT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var responseJSON;",
+							"try {",
+							"    responseJSON = JSON.parse(responseBody); ",
+							"    tests[\"Status equals 201\"] = responseJSON.status === 201;",
+							"}",
+							"catch (e) { }",
+							"tests[\"Body contains status\"] = responseBody.has(\"status\");",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8888/v1/books/612afa371d094850e801fd72",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\n\t  \"nome\": \"pautaB\"\n\t}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE PRODUCTS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var responseJSON;",
+							"try {",
+							"    responseJSON = JSON.parse(responseBody); ",
+							"    tests[\"Status equals 201\"] = responseJSON.status === 201;",
+							"}",
+							"catch (e) { }",
+							"tests[\"Body contains status\"] = responseBody.has(\"status\");",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/product/deleteAll",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\n\t  \"nome\": \"pautaB\"\n\t}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
