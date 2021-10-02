@@ -98,3 +98,6 @@ info.app.version=@project.version@
 info.app.encoding=@project.build.sourceEncoding@
 info.app.java.version=@java.version@
 ```
+
+## Postman
+><code>[postman/postman_collection.json](postman/postman_collection.json)</code>
