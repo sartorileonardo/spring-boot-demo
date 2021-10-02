@@ -120,3 +120,6 @@ public class MessageResource {
     }
 }
 ```
+
+## Postman
+><code>[postman/postman_collection.json](postman/postman_collection.json)</code>
