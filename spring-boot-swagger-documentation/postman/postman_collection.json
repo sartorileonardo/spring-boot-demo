@@ -1,0 +1,37 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Swagger",
+		"_postman_id": "1db2d5ad-7626-9845-c690-a5cc93bbf0a8",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET ALL BOOKS",
+			"request": {
+				"url": "http://localhost:8080/books",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"pauta1\",\n\t\"votos\": [\n\t\t{\n\t\t\t\"cpf\": 123,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 456,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 789,\n\t\t\t\"mensagemVoto\": \"NAO\"\n\t\t}\n\t\t\n\t]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

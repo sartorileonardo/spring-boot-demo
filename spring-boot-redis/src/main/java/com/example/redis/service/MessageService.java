@@ -1,19 +1,17 @@
-package com.example.redis.config;
+package com.example.redis.service;
 
 
 import java.time.LocalDateTime;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+public class ReceiverService {
 
-public class Receiver {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(Receiver.class);
     private AtomicInteger counter = new AtomicInteger();
 
     public void receiveMessage(String message){
-        LOGGER.info("Received message: " + message + " at " + LocalDateTime.now());
+        log.info("Received message: " + message + " at " + LocalDateTime.now());
         counter.incrementAndGet();
     }
 
