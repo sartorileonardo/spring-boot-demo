@@ -1,0 +1,49 @@
+{
+	"variables": [],
+	"info": {
+		"name": "WARMUP JMH",
+		"_postman_id": "e97ee0e6-ac8d-ef70-e812-8c89d1a42d7b",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "JMH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/message",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\n\t  \"text\": \"hello Redis\"\n\t}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
