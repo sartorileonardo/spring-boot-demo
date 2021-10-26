@@ -3,7 +3,7 @@
 > Spring Boot with Java Microbenchmark Harness (JMH) warmup.
 
 ## Time of Response API - Line Chart
-![chart with result times](https://github.com/sartorileonardo/spring-boot-demo/tree/main/spring-boot-jmh-warmup/chart/line-graph-result-warmup.png?raw=true)
+![chart with result times](chart/line-graph-result-warmup.png)
 
 ## Time of Response API - Table
 | Iterations         | No warmup (ms)| With warmup (ms)|
