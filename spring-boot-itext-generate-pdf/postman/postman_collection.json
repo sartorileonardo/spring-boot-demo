@@ -10,7 +10,7 @@
 		{
 			"name": "GET ALL",
 			"request": {
-				"url": "https://localhost:8888/v1/books",
+				"url": "http://localhost:8888/v1/books",
 				"method": "GET",
 				"header": [
 					{
