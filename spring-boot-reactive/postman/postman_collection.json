@@ -1,0 +1,288 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Books demo",
+		"_postman_id": "ab63a3f4-e1b0-2f40-b139-6dd90b890802",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET ALL",
+			"request": {
+				"url": "http://localhost:8888/v1/books",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"pauta1\",\n\t\"votos\": [\n\t\t{\n\t\t\t\"cpf\": 123,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 456,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 789,\n\t\t\t\"mensagemVoto\": \"NAO\"\n\t\t}\n\t\t\n\t]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET BY ISBN",
+			"request": {
+				"url": "https://sistema-votacao-de-pauta.herokuapp.com/v1/pauta/6/",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"pauta1\",\n\t\"votos\": [\n\t\t{\n\t\t\t\"cpf\": 123,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 456,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 789,\n\t\t\t\"mensagemVoto\": \"NAO\"\n\t\t}\n\t\t\n\t]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "ADD LIVRO",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var responseJSON;",
+							"try {",
+							"    responseJSON = JSON.parse(responseBody); ",
+							"    tests[\"Status equals 201\"] = responseJSON.status === 201;",
+							"}",
+							"catch (e) { }",
+							"tests[\"Body contains status\"] = responseBody.has(\"status\");",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8888/v1/books",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"isbn\": \"612bdcae99f847190ac26765\",\n    \"name\": \"Java 9\",\n    \"author\": \"Kathy Sierra\",\n    \"cost\": 500.75\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "ADD LIVROS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var responseJSON;",
+							"try {",
+							"    responseJSON = JSON.parse(responseBody); ",
+							"    tests[\"Status equals 201\"] = responseJSON.status === 201;",
+							"}",
+							"catch (e) { }",
+							"tests[\"Body contains status\"] = responseBody.has(\"status\");",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8888/v1/books/addall",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"isbn\": \"612afa371d094850e801fd80\",\n        \"name\": \"Pai Rico Pai Pobre\",\n        \"author\": \"Robert Kiyosaki e Sharon Lechter\",\n        \"cost\": 50.00\n    },\n    {\n        \"isbn\": \"612afa371d094850e801fd81\",\n        \"name\": \"Microsserviços Prontos Para a Produção\",\n        \"author\": \"Susan J. Fowler\",\n        \"cost\": 40.75\n    },\n    {\n        \"isbn\": \"612afa371d094850e801fd82\",\n        \"name\": \"Introdução ao MongoDB\",\n        \"author\": \"David Hows\",\n        \"cost\": 30.80\n    }\n]"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE LIVRO",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var responseJSON;",
+							"try {",
+							"    responseJSON = JSON.parse(responseBody); ",
+							"    tests[\"Status equals 201\"] = responseJSON.status === 201;",
+							"}",
+							"catch (e) { }",
+							"tests[\"Body contains status\"] = responseBody.has(\"status\");",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8888/v1/books/612bdcae99f847190ac26764",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"isbn\": \"612bdcae99f847190ac26765\",\n    \"name\": \"Java 9\",\n    \"author\": \"Kathy Sierra\",\n    \"cost\": 500.75\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE LIVRO",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var responseJSON;",
+							"try {",
+							"    responseJSON = JSON.parse(responseBody); ",
+							"    tests[\"Status equals 201\"] = responseJSON.status === 201;",
+							"}",
+							"catch (e) { }",
+							"tests[\"Body contains status\"] = responseBody.has(\"status\");",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8888/v1/books/612bdcae99f847190ac26764",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE LIVROS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var responseJSON;",
+							"try {",
+							"    responseJSON = JSON.parse(responseBody); ",
+							"    tests[\"Status equals 201\"] = responseJSON.status === 201;",
+							"}",
+							"catch (e) { }",
+							"tests[\"Body contains status\"] = responseBody.has(\"status\");",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8888/v1/books/deleteall",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\n\t  \"nome\": \"pautaB\"\n\t}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
