@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "Books demo",
-		"_postman_id": "18f84662-b1a3-aa8c-758e-1f585a6244c7",
+		"_postman_id": "ad504948-6f67-8cdf-f957-dc07dd003f58",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -25,10 +25,6 @@
 						"disabled": true
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"nome\": \"pauta1\",\n\t\"votos\": [\n\t\t{\n\t\t\t\"cpf\": 123,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 456,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 789,\n\t\t\t\"mensagemVoto\": \"NAO\"\n\t\t}\n\t\t\n\t]\n}"
-				},
 				"description": ""
 			},
 			"response": []
@@ -36,7 +32,7 @@
 		{
 			"name": "GET BY ISBN",
 			"request": {
-				"url": "https://sistema-votacao-de-pauta.herokuapp.com/v1/pauta/6/",
+				"url": "http://localhost:8888/v1/books/612afa371d094850e801fd72",
 				"method": "GET",
 				"header": [
 					{
@@ -51,10 +47,6 @@
 						"disabled": true
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"nome\": \"pauta1\",\n\t\"votos\": [\n\t\t{\n\t\t\t\"cpf\": 123,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 456,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 789,\n\t\t\t\"mensagemVoto\": \"NAO\"\n\t\t}\n\t\t\n\t]\n}"
-				},
 				"description": ""
 			},
 			"response": []
@@ -81,7 +73,7 @@
 				}
 			],
 			"request": {
-				"url": "https://sistema-votacao-de-pauta.herokuapp.com/v1/pauta/",
+				"url": "http://localhost:8888/v1/books/",
 				"method": "POST",
 				"header": [
 					{
@@ -98,7 +90,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "\t{\n\t  \"nome\": \"pautaB\"\n\t}"
+					"raw": "{\n        \"isbn\": \"612afa371d094850e801fd72\",\n        \"name\": \"Poeira em alto mar\",\n        \"author\": \"Joao da Silva\",\n        \"cost\": 10.75\n}"
 				},
 				"description": ""
 			},
@@ -171,7 +163,7 @@
 				}
 			],
 			"request": {
-				"url": "https://sistema-votacao-de-pauta.herokuapp.com/v1/pauta/",
+				"url": "http://localhost:8888/v1/books/612afa371d094850e801fd72",
 				"method": "PUT",
 				"header": [
 					{
@@ -233,7 +225,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "\t{\n\t  \"nome\": \"pautaB\"\n\t}"
+					"raw": ""
 				},
 				"description": ""
 			},
@@ -278,7 +270,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "\t{\n\t  \"nome\": \"pautaB\"\n\t}"
+					"raw": ""
 				},
 				"description": ""
 			},

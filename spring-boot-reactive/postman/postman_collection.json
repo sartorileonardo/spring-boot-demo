@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "Books demo",
-		"_postman_id": "ab63a3f4-e1b0-2f40-b139-6dd90b890802",
+		"_postman_id": "416cdea7-0c6b-0c9f-0657-4ba1e1706573",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -25,10 +25,6 @@
 						"disabled": true
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"nome\": \"pauta1\",\n\t\"votos\": [\n\t\t{\n\t\t\t\"cpf\": 123,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 456,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 789,\n\t\t\t\"mensagemVoto\": \"NAO\"\n\t\t}\n\t\t\n\t]\n}"
-				},
 				"description": ""
 			},
 			"response": []
@@ -36,7 +32,7 @@
 		{
 			"name": "GET BY ISBN",
 			"request": {
-				"url": "https://sistema-votacao-de-pauta.herokuapp.com/v1/pauta/6/",
+				"url": "http://localhost:8888/v1/books/612bdcae99f847190ac26764",
 				"method": "GET",
 				"header": [
 					{
@@ -51,10 +47,6 @@
 						"disabled": true
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"nome\": \"pauta1\",\n\t\"votos\": [\n\t\t{\n\t\t\t\"cpf\": 123,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 456,\n\t\t\t\"mensagemVoto\": \"SIM\"\n\t\t},\n\t\t{\n\t\t\t\"cpf\": 789,\n\t\t\t\"mensagemVoto\": \"NAO\"\n\t\t}\n\t\t\n\t]\n}"
-				},
 				"description": ""
 			},
 			"response": []
@@ -276,10 +268,6 @@
 						"disabled": true
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": "\t{\n\t  \"nome\": \"pautaB\"\n\t}"
-				},
 				"description": ""
 			},
 			"response": []
