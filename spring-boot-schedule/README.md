@@ -65,3 +65,6 @@ public class DemoApplication {
 
 }
 ```
+
+## Run Application
+`mvn spring-boot:run`

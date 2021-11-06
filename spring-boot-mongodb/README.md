@@ -168,5 +168,8 @@ public class BookResource {
 
 ```
 
+## Run Application
+`mvn spring-boot:run`
+
 ## Postman
 ><code>[postman/postman_collection.json](postman/postman_collection.json)</code>

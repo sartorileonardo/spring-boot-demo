@@ -76,3 +76,6 @@ public class Receiver {
     
 }
 ```
+
+## Run Application
+`mvn spring-boot:run`

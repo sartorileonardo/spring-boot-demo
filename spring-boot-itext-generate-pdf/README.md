@@ -312,6 +312,9 @@ spring.main.banner-mode="off"
 logging.level.org.springframework=ERROR
 ```
 
+## Run Application
+`mvn spring-boot:run`
+
 ## Postman
 ><code>[postman/postman_collection.json](postman/postman_collection.json)</code>
 

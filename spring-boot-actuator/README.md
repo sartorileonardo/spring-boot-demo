@@ -99,5 +99,8 @@ info.app.encoding=@project.build.sourceEncoding@
 info.app.java.version=@java.version@
 ```
 
+## Run Application
+`mvn spring-boot:run`
+
 ## Postman
 ><code>[postman/postman_collection.json](postman/postman_collection.json)</code>
