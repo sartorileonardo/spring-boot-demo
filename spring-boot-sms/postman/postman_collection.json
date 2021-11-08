@@ -1,0 +1,49 @@
+{
+	"variables": [],
+	"info": {
+		"name": "SMS Twilio",
+		"_postman_id": "afb84b75-2c05-f5e4-c8ce-feb1235bb295",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Send Message",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/message/+12087423900/+5548912340000",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"text\": \"Hello World by Twilio SMS technology\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
