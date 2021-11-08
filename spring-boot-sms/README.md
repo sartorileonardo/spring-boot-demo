@@ -95,7 +95,7 @@ server.error.include-message=always
 ## Postman
 ><code>[postman/postman_collection.json](postman/postman_collection.json)</code>
 
-## Scheen from received message
+## Screen from received message
 ![screen_from_received_message](img/ReceivedMessageConfirm.png)
 
 
