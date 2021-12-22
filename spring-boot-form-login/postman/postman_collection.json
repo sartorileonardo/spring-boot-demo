@@ -1,0 +1,54 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Login Form",
+		"_postman_id": "afb84b75-2c05-f5e4-c8ce-feb1235bb295",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/login",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic dXNlcjpteS1wYXNzd29yZC10by1mb3JtLWxvZ2luLWRlZmF1bHQ=",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"text\": \"Hello World by Twilio SMS technology\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
