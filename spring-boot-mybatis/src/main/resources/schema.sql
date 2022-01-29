@@ -1,0 +1,9 @@
+--Creating tables
+DROP TABLE IF EXISTS `BOOKS`;
+CREATE TABLE IF NOT EXISTS `BOOKS`(
+  `id`      BIGINT AUTO_INCREMENT PRIMARY KEY,
+  `name`    VARCHAR(100) NOT NULL,
+  `isbn`    VARCHAR(50) NOT NULL,
+  `price`   NUMERIC(5, 2) NOT NULL,
+  `author`  VARCHAR(100) NOT NULL
+);
