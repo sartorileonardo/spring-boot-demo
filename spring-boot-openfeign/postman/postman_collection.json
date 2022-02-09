@@ -1,0 +1,87 @@
+{
+	"info": {
+		"_postman_id": "0d759fe9-dffa-405a-a322-da5a7b456c20",
+		"name": "Dictionary",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Answer",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8888/v1/dictionary/price",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"v1",
+						"dictionary",
+						"price"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Synonymous",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8888/v1/dictionary/price",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"v1",
+						"dictionary",
+						"price"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Antonyms",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8888/v1/dictionary/price",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"v1",
+						"dictionary",
+						"price"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

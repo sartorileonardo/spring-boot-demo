@@ -1,0 +1,11 @@
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 15000
+        readTimeout: 15000
+        loggerLevel: basic
+server:
+  port: 8888
+  error:
+    include-message: always
