@@ -3,7 +3,7 @@
 > Spring boot with MyBatis
 
 
-## application.yml
+## application.properties
 
 ```properties
 server.port=8888
