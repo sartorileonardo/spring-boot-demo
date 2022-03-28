@@ -15,15 +15,15 @@ public class BookService {
     private BookRepository bookRepository;
 
     public Flux<Book> findAll() {
-        return bookRepository.findAll();
+        return bookRepository.findAll().switchIfEmpty(Flux.empty());
     }
 
     public Mono<Book> findById(Long id) {
-        return bookRepository.findById(id).doOnNext(book -> log.info(book.toString()));
+        return bookRepository.findById(id).switchIfEmpty(Mono.empty());
     }
 
     public Flux<Book> findByTitle(String title) {
-        return bookRepository.findByTitle(title).doOnNext(book -> log.info(book.toString()));
+        return bookRepository.findByTitle(title).switchIfEmpty(Flux.empty());
     }
 
     public Mono<Book> save(Book book) {
