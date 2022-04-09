@@ -12,7 +12,7 @@
 	<artifactId>demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>demo</name>
-	<description>Demo project for Spring Boot with Twilio (SMS)</description>
+	<description>Demo project for Spring Boot with Retry</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
