@@ -1,0 +1,15 @@
+spring:
+  profiles:
+    active: usage_message
+  rabbitmq:
+    host: 172.17.0.2 #Replace to container IP from RabbitMQ
+    port: 5672
+    username: guest
+    password: guest
+
+logging:
+  level:
+    org: ERROR
+
+server:
+  port: 8888
