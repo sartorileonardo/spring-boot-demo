@@ -1,0 +1,40 @@
+{
+	"info": {
+		"_postman_id": "13b46767-078b-4282-88ba-5e7ae5b672b0",
+		"name": "Google Translate",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getTranslate",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fromLanguage\": \"en\",\r\n    \"toLanguage\": \"pt\",\r\n    \"text\": \"Hi\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/translate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"translate"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
