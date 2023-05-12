@@ -54,7 +54,7 @@ class TranslateControllerTest {
 server.port=8888
 
 # You Google API KEY
-translate.key=AIzaSyACJybEm6lyelnYHZzXfydtk-V6-Uz48bQ
+translate.key=API_KEY
 
 ```
 
