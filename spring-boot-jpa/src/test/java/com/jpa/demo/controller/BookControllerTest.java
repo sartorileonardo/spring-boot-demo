@@ -1,28 +1,14 @@
 package com.jpa.demo.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jpa.demo.entity.Author;
 import com.jpa.demo.entity.Book;
 import com.jpa.demo.entity.PublishingCompany;
+import com.jpa.demo.exception.ResourceNotFoundException;
 import com.jpa.demo.repository.AuthorRepository;
 import com.jpa.demo.repository.BookRepository;
 import com.jpa.demo.repository.PublishingCompanyRepository;
 import com.jpa.demo.service.BookService;
-import static org.hamcrest.CoreMatchers.is;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,8 +19,20 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest
 class BookControllerTest {
@@ -56,7 +54,6 @@ class BookControllerTest {
 
     @MockBean
     private PublishingCompanyRepository publishingCompanyRepository;
-
 
 
     private Book book;
@@ -129,6 +126,22 @@ class BookControllerTest {
     }
 
     @Test
+    @DisplayName("Should return a exception when book not found")
+    public void getOneBookWhenBookNotFound() throws Exception {
+        //Given
+        long bookId = 10L;
+        given(service.findById(bookId)).willThrow(ResourceNotFoundException.class);
+
+        //When
+        ResultActions response = mockMvc.perform(get("/v1/books/{id}", bookId));
+
+        //Then
+        response
+                .andDo(print())
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
     @DisplayName("Should save a new book with sucess")
     void addBook() throws Exception {
         //Given
@@ -149,12 +162,74 @@ class BookControllerTest {
 
     @Test
     @DisplayName("Should update existing book with sucess")
-    void updateBook() {
+    void updateBook() throws Exception {
+        //Given
+        long bookId = 10L;
+        Book updatedBook = book = Book.builder()
+                .id(bookId)
+                .author(authors)
+                .publishingCompany(publishingCompany)
+                .isbn(UUID.randomUUID().toString())
+                .name("updatedBook")
+                .cost(new BigDecimal("15.50"))
+                .build();
+        given(service.findById(bookId)).willReturn(Optional.ofNullable(book));
+        given(service.update(any(Book.class))).willAnswer((invocation) -> invocation.getArgument(0));
+
+        //When
+        ResultActions response = mockMvc.perform(put("/v1/books/")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(updatedBook)));
+
+        //Then
+        response
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name", is(updatedBook.getName())));
     }
 
     @Test
-    @DisplayName("Should delete an existing book")
-    void deleteBook() {
+    @DisplayName("Should exception when try update and not existing book")
+    void updateBookWhenNotExistingBook() throws Exception {
+        //Given
+        long bookId = 10L;
+        Book updatedBook = book = Book.builder()
+                .id(bookId)
+                .author(authors)
+                .publishingCompany(publishingCompany)
+                .isbn(UUID.randomUUID().toString())
+                .name("updatedBook")
+                .cost(new BigDecimal("15.50"))
+                .build();
+        given(service.findById(bookId)).willThrow(ResourceNotFoundException.class);
+        given(service.update(any(Book.class))).willAnswer((invocation) -> invocation.getArgument(1));
+
+        //When
+        ResultActions response = mockMvc.perform(put("/v1/books/")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(updatedBook)));
+
+        //Then
+        response
+                .andDo(print())
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    @DisplayName("Should delete a existing book")
+    void deleteBook() throws Exception {
+        //Given
+        long bookId = 10L;
+        willDoNothing().given(service).deleteById(bookId);
+
+        //When
+        ResultActions response = mockMvc.perform(delete("/v1/books/{id}", bookId));
+
+        //Then
+        response
+                .andDo(print())
+                .andExpect(status().isNoContent());
+
     }
 
 }
