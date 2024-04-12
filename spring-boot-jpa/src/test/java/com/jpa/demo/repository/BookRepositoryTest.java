@@ -3,66 +3,116 @@ package com.jpa.demo.repository;
 import com.jpa.demo.entity.Author;
 import com.jpa.demo.entity.Book;
 import com.jpa.demo.entity.PublishingCompany;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@DataJpaTest
 public class BookRepositoryTest {
 
     @Autowired
     private BookRepository bookRepository;
 
-    @Autowired
-    private AuthorRepository authorRepository;
+    private Book book;
 
-    @Autowired
-    private PublishingCompanyRepository publishingCompanyRepository;
+    private List<Author> authors;
 
-    @Test
-    public void getAllBooks(){
-        assertNotNull(bookRepository.findAll());
+    private PublishingCompany publishingCompany;
+
+    @BeforeEach
+    public void setup() {
+        //Given
+        bookRepository.deleteAll();
+        publishingCompany = PublishingCompany.builder().id(1L).name("ABC").build();
+        authors = List.of(Author.builder().id(1L).firstName("Joao").lastName("Silva").build());
+        book = Book.builder()
+                .id(8L)
+                .author(authors)
+                .publishingCompany(publishingCompany)
+                .isbn(UUID.randomUUID().toString())
+                .name("Inteligência artificial")
+                .cost(new BigDecimal("29.90"))
+                .build();
+    }
+
+    @AfterEach
+    public void cleanup() {
+        bookRepository.deleteAll();
     }
 
     @Test
-    public void getOneBook(){
-        Integer bookId = 1;
-        assertNotNull(bookRepository.findById(bookId));
+    @DisplayName("Should return a list from saved books")
+    void getAllBooks() {
+        //Given
+        bookRepository.save(book);
+
+        //When
+        List<Book> books = bookRepository.findAll();
+
+        //Then
+        assertNotNull(books);
+        assertFalse(books.isEmpty());
+        assertEquals(1, books.size());
     }
 
     @Test
-    public void addBook(){
-        PublishingCompany publishingCompany = publishingCompanyRepository.getById(1);
-        List<Author> authors = authorRepository.findAllById(List.of(1, 2));
-        Integer bookId = 5;
-        Book book = new Book(bookId, UUID.randomUUID().toString(), "Inteligência artificial", new BigDecimal("29.90"), authors, publishingCompany);
+    @DisplayName("Should return a existing book")
+    public void getOneBook() {
+        //Given & When
         Book savedBook = bookRepository.save(book);
-        assertEquals(bookId, savedBook.getId());
+
+        //Then
+        assertNotNull(savedBook);
+        assertEquals(book.getId(), savedBook.getId());
+    }
+
+    @Test
+    @DisplayName("Should save a new book with sucess")
+    void addBook() {
+        //Then
+        Book savedBook = bookRepository.save(book);
+
+        //When
+        assertNotNull(savedBook);
     }
 
 
     @Test
-    public void updateBook(){
-        Integer bookId = 4;
-        Book book = bookRepository.findById(bookId).get();
-        BigDecimal newCost = new BigDecimal("75.20");
-        book.setCost(newCost);
-        Book bookUpdated = bookRepository.save(book);
-        assertEquals(newCost, bookUpdated.getCost());
+    @DisplayName("Should update existing book with sucess")
+    void updateBook() {
+        //Given
+        Book savedBook = bookRepository.save(book);
+
+        //When
+        String newBookName = "NewBookName";
+        savedBook.setName(newBookName);
+        Book bookUpdated = bookRepository.save(savedBook);
+
+        //Then
+        assertNotNull(bookUpdated);
+        assertEquals(newBookName, bookUpdated.getName());
     }
 
     @Test
-    public void deleteBook(){
-        Integer bookId = 4;
-        bookRepository.deleteById(bookId);
-        assertTrue(bookRepository.findById(bookId).isEmpty());
+    @DisplayName("Should delete an existing book")
+    void deleteBook() {
+        //Given
+        Book savedBook = bookRepository.save(book);
+
+        //When
+        bookRepository.deleteById(savedBook.getId());
+
+        //Then
+        assertTrue(bookRepository.findById(savedBook.getId()).isEmpty());
     }
 
 }
