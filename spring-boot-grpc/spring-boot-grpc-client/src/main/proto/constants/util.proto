@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package constants;
+
+option java_multiple_files = true;
+option java_package = "com.grpc.client.employee.constants";
+
+
+enum Type {
+  FANTASY = 0;
+  AUTOBIOGRAPHY = 1;
+  HISTORY = 2;
+  TECH = 3;
+}

@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+import "constants/util.proto";
+
+option java_multiple_files = true;
+option java_package = "com.grpc.server.grpc_demo_java.employee";
+
+message BookRequest{
+  string book_id = 1;
+}
+message BookResponse {
+  string book_id = 1;
+  string name = 2;
+  float price = 3;
+  constants.Type type = 4;
+}
+
+service BookService {
+  rpc getBook(BookRequest) returns (BookResponse) {};
+}
