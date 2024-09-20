@@ -60,7 +60,7 @@ Este repositório contém diversos exemplos de projetos Spring Boot.
 * Suporte para diversas funcionalidades avançadas de PDF, como tabelas, imagens e gráficos.
 * Integração com Spring Boot para manipulação de dados de entrada e saída de forma eficiente.
 
-### 9. [Spring Boot com JDBC](https://github.com/exemplo/spring-boot-jdbc](https://github.com/sartorileonardo/spring-boot-demo/tree/main/spring-boot-jdbc)
+### 9. [Spring Boot com JDBC](https://github.com/sartorileonardo/spring-boot-demo/tree/main/spring-boot-jdbc)
 **O que é:** Spring Boot com JDBC é uma integração simples e eficaz entre o Spring Framework e o Java Database Connectivity (JDBC), permitindo que você conecte sua aplicação Spring a um banco de dados relacional e execute consultas SQL de forma prática.
 **Vantagens:**
 * Facilidade de uso com o `JdbcTemplate` para execução de consultas SQL.
@@ -75,7 +75,7 @@ Este repositório contém diversos exemplos de projetos Spring Boot.
 * Aquecimento para minimizar distorções causadas pelo JIT.
 * Identificação de gargalos de desempenho no código.
 
-### 11. [Spring Boot com JPA](https://github.com/sartorileonardo/spring-boot-demo/tree/main/spring-boot-jpa](https://github.com/sartorileonardo/spring-boot-demo/tree/main/spring-boot-jpa)
+### 11. [Spring Boot com JPA](https://github.com/sartorileonardo/spring-boot-demo/tree/main/spring-boot-jpa)
 **O que é:** Spring Data JPA é uma parte do Spring Data que facilita o acesso a dados em aplicações Java. Ele simplifica a implementação de repositórios de dados, permitindo que você interaja com bancos de dados usando entidades Java e operações CRUD.
 
 **Vantagens:**
@@ -100,7 +100,7 @@ Este repositório contém diversos exemplos de projetos Spring Boot.
 * Mapeamento simples entre objetos Java e tabelas de banco de dados.
 * Redução do código boilerplate em comparação com JDBC.
 
-### 14. [Spring Boot com OpenFeign](https://github.com/sartorileonardo/spring-boot-demo/tree/main/spring-boot-openfeign](https://github.com/sartorileonardo/spring-boot-demo/tree/main/spring-boot-openfeign)
+### 14. [Spring Boot com OpenFeign](https://github.com/sartorileonardo/spring-boot-demo/tree/main/spring-boot-openfeign)
 **O que é:** OpenFeign é uma biblioteca que simplifica a criação de clientes HTTP em aplicações Spring Boot. Com ele, você pode declarar interfaces que representam serviços externos, e o Feign se encarrega de implementar as chamadas HTTP para você.
 **Vantagens:**
 * Redução da boilerplate code ao criar clientes HTTP.
