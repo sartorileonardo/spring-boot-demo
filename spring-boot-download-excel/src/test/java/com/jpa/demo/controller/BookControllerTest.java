@@ -15,7 +15,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -31,8 +33,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest
 class BookControllerTest {
@@ -55,21 +56,18 @@ class BookControllerTest {
     @MockBean
     private PublishingCompanyRepository publishingCompanyRepository;
 
-
     private Book book;
-
     private List<Author> authors;
-
     private PublishingCompany publishingCompany;
 
     @BeforeEach
     public void setup() {
-        //Given
+        // Given
         publishingCompany = PublishingCompany.builder().id(1L).name("ABC").build();
         authors = List.of(Author.builder().id(1L).firstName("Joao").lastName("Silva").build());
         book = Book.builder()
                 .id(8L)
-                .author(authors)
+                .authors(authors)
                 .publishingCompany(publishingCompany)
                 .isbn(UUID.randomUUID().toString())
                 .name("Inteligência artificial")
@@ -78,12 +76,12 @@ class BookControllerTest {
     }
 
     @Test
-    @DisplayName("Should return a list from saved books")
+    @DisplayName("Should return a list of saved books")
     void getAllBooks() throws Exception {
-        //Given
+        // Given
         Book otherBook = Book.builder()
                 .id(9L)
-                .author(authors)
+                .authors(authors)
                 .publishingCompany(publishingCompany)
                 .isbn(UUID.randomUUID().toString())
                 .name("AnyBook")
@@ -96,29 +94,27 @@ class BookControllerTest {
 
         given(service.findAll()).willReturn(books);
 
-        //When
-        ResultActions response = mockMvc.perform(get("/v1/books"));
+        // When
+        ResultActions response = mockMvc.perform(get("/books"));
 
-        //Then
-        response.
-                andExpect(status().isOk())
+        // Then
+        response.andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(jsonPath("$.size()", is(books.size())));
     }
 
     @Test
-    @DisplayName("Should return a existing book")
+    @DisplayName("Should return an existing book")
     public void getOneBook() throws Exception {
-        //Given
+        // Given
         long bookId = 10L;
         given(service.findById(bookId)).willReturn(Optional.ofNullable(book));
 
-        //When
-        ResultActions response = mockMvc.perform(get("/v1/books/{id}", bookId));
+        // When
+        ResultActions response = mockMvc.perform(get("/books/{id}", bookId));
 
-        //Then
-        response
-                .andDo(print())
+        // Then
+        response.andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(book.getId().intValue())))
                 .andExpect(jsonPath("$.name", is(book.getName())))
@@ -126,48 +122,45 @@ class BookControllerTest {
     }
 
     @Test
-    @DisplayName("Should return a exception when book not found")
+    @DisplayName("Should return exception when book not found")
     public void getOneBookWhenBookNotFound() throws Exception {
-        //Given
+        // Given
         long bookId = 10L;
         given(service.findById(bookId)).willThrow(ResourceNotFoundException.class);
 
-        //When
+        // When
         ResultActions response = mockMvc.perform(get("/v1/books/{id}", bookId));
 
-        //Then
-        response
-                .andDo(print())
+        // Then
+        response.andDo(print())
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    @DisplayName("Should save a new book with sucess")
+    @DisplayName("Should save a new book successfully")
     void addBook() throws Exception {
-        //Given
+        // Given
         given(service.save(any(Book.class))).willAnswer((invocation) -> invocation.getArgument(0));
 
-        //When
-        ResultActions response = mockMvc.perform(post("/v1/books")
+        // When
+        ResultActions response = mockMvc.perform(post("/books")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(book)));
 
-        //Then
-        response
-                .andDo(print())
+        // Then
+        response.andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is(book.getName())));
     }
 
-
     @Test
-    @DisplayName("Should update existing book with sucess")
+    @DisplayName("Should update an existing book successfully")
     void updateBook() throws Exception {
-        //Given
+        // Given
         long bookId = 10L;
-        Book updatedBook = book = Book.builder()
+        Book updatedBook = Book.builder()
                 .id(bookId)
-                .author(authors)
+                .authors(authors)
                 .publishingCompany(publishingCompany)
                 .isbn(UUID.randomUUID().toString())
                 .name("updatedBook")
@@ -176,26 +169,25 @@ class BookControllerTest {
         given(service.findById(bookId)).willReturn(Optional.ofNullable(book));
         given(service.update(any(Book.class))).willAnswer((invocation) -> invocation.getArgument(0));
 
-        //When
-        ResultActions response = mockMvc.perform(put("/v1/books/")
+        // When
+        ResultActions response = mockMvc.perform(put("/books")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(updatedBook)));
 
-        //Then
-        response
-                .andDo(print())
+        // Then
+        response.andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is(updatedBook.getName())));
     }
 
     @Test
-    @DisplayName("Should exception when try update and not existing book")
+    @DisplayName("Should return exception when trying to update a non-existing book")
     void updateBookWhenNotExistingBook() throws Exception {
-        //Given
+        // Given
         long bookId = 10L;
-        Book updatedBook = book = Book.builder()
+        Book updatedBook = Book.builder()
                 .id(bookId)
-                .author(authors)
+                .authors(authors)
                 .publishingCompany(publishingCompany)
                 .isbn(UUID.randomUUID().toString())
                 .name("updatedBook")
@@ -204,32 +196,46 @@ class BookControllerTest {
         given(service.findById(bookId)).willThrow(ResourceNotFoundException.class);
         given(service.update(any(Book.class))).willAnswer((invocation) -> invocation.getArgument(1));
 
-        //When
-        ResultActions response = mockMvc.perform(put("/v1/books/")
+        // When
+        ResultActions response = mockMvc.perform(put("/books")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(updatedBook)));
 
-        //Then
-        response
-                .andDo(print())
+        // Then
+        response.andDo(print())
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    @DisplayName("Should delete a existing book")
+    @DisplayName("Should delete an existing book")
     void deleteBook() throws Exception {
-        //Given
+        // Given
         long bookId = 10L;
         willDoNothing().given(service).deleteById(bookId);
 
-        //When
-        ResultActions response = mockMvc.perform(delete("/v1/books/{id}", bookId));
+        // When
+        ResultActions response = mockMvc.perform(delete("/books/{id}", bookId));
 
-        //Then
-        response
-                .andDo(print())
+        // Then
+        response.andDo(print())
                 .andExpect(status().isNoContent());
-
     }
 
+    @Test
+    @DisplayName("Should generate and return a books report")
+    void getBooksReport() throws Exception {
+        // Given
+        byte[] reportContent = "Report content".getBytes(); // Simulated content, can be a PDF/CSV file, etc.
+        given(service.getBooksReport()).willReturn(new ResponseEntity<>(reportContent, HttpStatus.OK));
+
+        // When
+        ResultActions response = mockMvc.perform(get("/books/report")
+                .accept(MediaType.APPLICATION_OCTET_STREAM)); // Assuming the report is EXCEL
+
+        // Then
+        response.andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_OCTET_STREAM))
+                .andExpect(content().bytes(reportContent));
+    }
 }

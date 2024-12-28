@@ -1,7 +1,6 @@
-# spring-boot-jpa
+# spring-boot-download-excel
 
-> Spring boot with Java Persistence API (JPA)
-
+> Spring boot with Apache POI (Download Excel Report)
 
 ## application.yml
 
@@ -17,6 +16,7 @@ server.error.include-message=always
 ```
 
 ## Book.java
+
 ```java
 package com.jpa.demo.entity;
 
@@ -53,7 +53,7 @@ public class Book {
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_author", insertable = true, updatable = true)
-    private List<Author> author;
+    private List<Author> authors;
 
     @OneToOne
     @JoinColumn(name = "id_publising_company", insertable = true, updatable = true)
@@ -64,15 +64,17 @@ public class Book {
 
 ```
 
-
 ## BookRepository.java
+
 ```java
+
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
 }
 ```
 
 ## BookRepositoryTest.java
+
 ```java
 
 @DataJpaTest
@@ -95,7 +97,7 @@ public class BookRepositoryTest {
         authors = List.of(Author.builder().id(1L).firstName("Joao").lastName("Silva").build());
         book = Book.builder()
                 .id(8L)
-                .author(authors)
+                .authors(authors)
                 .publishingCompany(publishingCompany)
                 .isbn(UUID.randomUUID().toString())
                 .name("Inteligência artificial")
@@ -178,7 +180,8 @@ public class BookRepositoryTest {
 ```
 
 ## BookService.java
-```
+
+```java
 @Service
 public class BookService {
 
@@ -228,7 +231,8 @@ public class BookService {
 ```
 
 ## BookServiceTest.java
-```
+
+```java
 @ExtendWith(MockitoExtension.class)
 class BookServiceTest {
 
@@ -239,19 +243,17 @@ class BookServiceTest {
     private BookService bookService;
 
     private Book book;
-
     private List<Author> authors;
-
     private PublishingCompany publishingCompany;
 
     @BeforeEach
     public void setup() {
-        //Given
+        // Given
         publishingCompany = PublishingCompany.builder().id(1L).name("ABC").build();
         authors = List.of(Author.builder().id(1L).firstName("Joao").lastName("Silva").build());
         book = Book.builder()
                 .id(1L)
-                .author(authors)
+                .authors(authors)
                 .publishingCompany(publishingCompany)
                 .isbn(UUID.randomUUID().toString())
                 .name("Inteligência artificial")
@@ -260,30 +262,30 @@ class BookServiceTest {
     }
 
     @Test
-    @DisplayName("Should return a list from saved books")
+    @DisplayName("Should return a list of saved books")
     void getAllBooks() {
-        //Given
+        // Given
         given(bookRepository.findAll()).willReturn(List.of(book));
 
-        //When
+        // When
         List<Book> books = bookService.findAll();
 
-        //Then
+        // Then
         assertNotNull(books);
         assertFalse(books.isEmpty());
         assertEquals(1, books.size());
     }
 
     @Test
-    @DisplayName("Should return a existing book")
+    @DisplayName("Should return an existing book")
     public void getOneBook() {
-        //Given
+        // Given
         given(bookRepository.findById(anyLong())).willReturn(Optional.of(book));
 
-        //When
+        // When
         Optional<Book> savedBook = bookService.findById(book.getId());
 
-        //Then
+        // Then
         assertTrue(savedBook.isPresent());
         assertEquals(book.getId(), savedBook.get().getId());
     }
@@ -305,10 +307,8 @@ class BookServiceTest {
         verify(bookRepository).save(any(Book.class));
     }
 
-
-
     @Test
-    @DisplayName("Should update existing book with sucess")
+    @DisplayName("Should update an existing book successfully")
     void updateBook() {
         // Given
         book.setName("updatedBookName");
@@ -328,24 +328,52 @@ class BookServiceTest {
     @Test
     @DisplayName("Should delete an existing book")
     void deleteBook() {
-        //Given
+        // Given
         willDoNothing().given(bookRepository).deleteById(book.getId());
 
-        //When
+        // When
         bookService.deleteById(book.getId());
 
-        //Then
+        // Then
         verify(bookRepository, times(1)).deleteById(book.getId());
     }
 
+    @Test
+    @DisplayName("Should generate a report of books")
+    void getBooksReport() throws Exception {
+        // Given
+        // Simulate a list of books for the report
+        given(bookRepository.findAll()).willReturn(List.of(book));
+
+        // When
+        ResponseEntity<byte[]> response = bookService.getBooksReport();
+
+        // Then
+        assertNotNull(response);
+        assertEquals(200, response.getStatusCodeValue());  // Ensure HTTP Status is OK (200)
+
+        byte[] reportContent = response.getBody();
+        assertNotNull(reportContent);
+        assertTrue(reportContent.length > 0);  // Ensure the report content is not empty
+
+        // Optionally, verify the report content type (Excel file)
+        assertTrue(response.getHeaders().getContentType().includes(org.springframework.http.MediaType.APPLICATION_OCTET_STREAM));
+
+        // Optionally, you can verify the content of the generated report
+        // For instance, if you want to check the first cell's content:
+        try (Workbook workbook = new XSSFWorkbook(new java.io.ByteArrayInputStream(reportContent))) {
+            assertEquals("ID", workbook.getSheetAt(0).getRow(0).getCell(0).getStringCellValue());
+        }
+    }
 }
+
 ```
 
 ## BookController.java
-```java
 
+```java
 @RestController
-@RequestMapping("/v1/books")
+@RequestMapping("/books")
 public class BookController {
 
     @Autowired
@@ -398,11 +426,17 @@ public class BookController {
         return bookService.findAll();
     }
 
+    @GetMapping("/report")
+    public ResponseEntity<byte[]> getBooksReport() {
+        return bookService.getBooksReport();
+    }
+
 }
 
 ```
 
 ## BookControllerTest.java
+
 ```java
 
 @WebMvcTest
@@ -426,21 +460,18 @@ class BookControllerTest {
     @MockBean
     private PublishingCompanyRepository publishingCompanyRepository;
 
-
     private Book book;
-
     private List<Author> authors;
-
     private PublishingCompany publishingCompany;
 
     @BeforeEach
     public void setup() {
-        //Given
+        // Given
         publishingCompany = PublishingCompany.builder().id(1L).name("ABC").build();
         authors = List.of(Author.builder().id(1L).firstName("Joao").lastName("Silva").build());
         book = Book.builder()
                 .id(8L)
-                .author(authors)
+                .authors(authors)
                 .publishingCompany(publishingCompany)
                 .isbn(UUID.randomUUID().toString())
                 .name("Inteligência artificial")
@@ -449,12 +480,12 @@ class BookControllerTest {
     }
 
     @Test
-    @DisplayName("Should return a list from saved books")
+    @DisplayName("Should return a list of saved books")
     void getAllBooks() throws Exception {
-        //Given
+        // Given
         Book otherBook = Book.builder()
                 .id(9L)
-                .author(authors)
+                .authors(authors)
                 .publishingCompany(publishingCompany)
                 .isbn(UUID.randomUUID().toString())
                 .name("AnyBook")
@@ -467,29 +498,27 @@ class BookControllerTest {
 
         given(service.findAll()).willReturn(books);
 
-        //When
-        ResultActions response = mockMvc.perform(get("/v1/books"));
+        // When
+        ResultActions response = mockMvc.perform(get("/books"));
 
-        //Then
-        response.
-                andExpect(status().isOk())
+        // Then
+        response.andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(jsonPath("$.size()", is(books.size())));
     }
 
     @Test
-    @DisplayName("Should return a existing book")
+    @DisplayName("Should return an existing book")
     public void getOneBook() throws Exception {
-        //Given
+        // Given
         long bookId = 10L;
         given(service.findById(bookId)).willReturn(Optional.ofNullable(book));
 
-        //When
-        ResultActions response = mockMvc.perform(get("/v1/books/{id}", bookId));
+        // When
+        ResultActions response = mockMvc.perform(get("/books/{id}", bookId));
 
-        //Then
-        response
-                .andDo(print())
+        // Then
+        response.andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(book.getId().intValue())))
                 .andExpect(jsonPath("$.name", is(book.getName())))
@@ -497,48 +526,45 @@ class BookControllerTest {
     }
 
     @Test
-    @DisplayName("Should return a exception when book not found")
+    @DisplayName("Should return exception when book not found")
     public void getOneBookWhenBookNotFound() throws Exception {
-        //Given
+        // Given
         long bookId = 10L;
         given(service.findById(bookId)).willThrow(ResourceNotFoundException.class);
 
-        //When
+        // When
         ResultActions response = mockMvc.perform(get("/v1/books/{id}", bookId));
 
-        //Then
-        response
-                .andDo(print())
+        // Then
+        response.andDo(print())
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    @DisplayName("Should save a new book with sucess")
+    @DisplayName("Should save a new book successfully")
     void addBook() throws Exception {
-        //Given
+        // Given
         given(service.save(any(Book.class))).willAnswer((invocation) -> invocation.getArgument(0));
 
-        //When
-        ResultActions response = mockMvc.perform(post("/v1/books")
+        // When
+        ResultActions response = mockMvc.perform(post("/books")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(book)));
 
-        //Then
-        response
-                .andDo(print())
+        // Then
+        response.andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is(book.getName())));
     }
 
-
     @Test
-    @DisplayName("Should update existing book with sucess")
+    @DisplayName("Should update an existing book successfully")
     void updateBook() throws Exception {
-        //Given
+        // Given
         long bookId = 10L;
-        Book updatedBook = book = Book.builder()
+        Book updatedBook = Book.builder()
                 .id(bookId)
-                .author(authors)
+                .authors(authors)
                 .publishingCompany(publishingCompany)
                 .isbn(UUID.randomUUID().toString())
                 .name("updatedBook")
@@ -547,26 +573,25 @@ class BookControllerTest {
         given(service.findById(bookId)).willReturn(Optional.ofNullable(book));
         given(service.update(any(Book.class))).willAnswer((invocation) -> invocation.getArgument(0));
 
-        //When
-        ResultActions response = mockMvc.perform(put("/v1/books/")
+        // When
+        ResultActions response = mockMvc.perform(put("/books")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(updatedBook)));
 
-        //Then
-        response
-                .andDo(print())
+        // Then
+        response.andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is(updatedBook.getName())));
     }
 
     @Test
-    @DisplayName("Should exception when try update and not existing book")
+    @DisplayName("Should return exception when trying to update a non-existing book")
     void updateBookWhenNotExistingBook() throws Exception {
-        //Given
+        // Given
         long bookId = 10L;
-        Book updatedBook = book = Book.builder()
+        Book updatedBook = Book.builder()
                 .id(bookId)
-                .author(authors)
+                .authors(authors)
                 .publishingCompany(publishingCompany)
                 .isbn(UUID.randomUUID().toString())
                 .name("updatedBook")
@@ -575,40 +600,61 @@ class BookControllerTest {
         given(service.findById(bookId)).willThrow(ResourceNotFoundException.class);
         given(service.update(any(Book.class))).willAnswer((invocation) -> invocation.getArgument(1));
 
-        //When
-        ResultActions response = mockMvc.perform(put("/v1/books/")
+        // When
+        ResultActions response = mockMvc.perform(put("/books")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(updatedBook)));
 
-        //Then
-        response
-                .andDo(print())
+        // Then
+        response.andDo(print())
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    @DisplayName("Should delete a existing book")
+    @DisplayName("Should delete an existing book")
     void deleteBook() throws Exception {
-        //Given
+        // Given
         long bookId = 10L;
         willDoNothing().given(service).deleteById(bookId);
 
-        //When
-        ResultActions response = mockMvc.perform(delete("/v1/books/{id}", bookId));
+        // When
+        ResultActions response = mockMvc.perform(delete("/books/{id}", bookId));
 
-        //Then
-        response
-                .andDo(print())
+        // Then
+        response.andDo(print())
                 .andExpect(status().isNoContent());
-
     }
 
+    @Test
+    @DisplayName("Should generate and return a books report")
+    void getBooksReport() throws Exception {
+        // Given
+        byte[] reportContent = "Report content".getBytes(); // Simulated content, can be a PDF/CSV file, etc.
+        given(service.getBooksReport()).willReturn(new ResponseEntity<>(reportContent, HttpStatus.OK));
+
+        // When
+        ResultActions response = mockMvc.perform(get("/books/report")
+                .accept(MediaType.APPLICATION_OCTET_STREAM)); // Assuming the report is EXCEL
+
+        // Then
+        response.andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_OCTET_STREAM))
+                .andExpect(content().bytes(reportContent));
+    }
 }
+
 
 ```
 
 ## Run Application
+
 `mvn spring-boot:run`
 
+## Open Swagger on Browser
+
+http://localhost:8888/swagger-ui.html#/book-controller/getBooksReportUsingGET
+
 ## Postman
-><code>[postman/postman_collection.json](postman/postman_collection.json)</code>
+
+> <code>[postman/postman_collection.json](postman/postman_collection.json)</code>

@@ -36,7 +36,7 @@ public class BookRepositoryTest {
         authors = List.of(Author.builder().id(1L).firstName("Joao").lastName("Silva").build());
         book = Book.builder()
                 .id(8L)
-                .author(authors)
+                .authors(authors)
                 .publishingCompany(publishingCompany)
                 .isbn(UUID.randomUUID().toString())
                 .name("Inteligência artificial")

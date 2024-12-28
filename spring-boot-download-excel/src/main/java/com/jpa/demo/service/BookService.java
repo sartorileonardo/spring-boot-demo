@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static com.jpa.demo.utils.ExcelUtils.*;
+
 @Service
 public class BookService {
 
@@ -69,7 +71,7 @@ public class BookService {
         entity.setName(book.getName());
         entity.setIsbn(book.getIsbn());
         entity.setCost(book.getCost());
-        entity.setAuthor(book.getAuthor());
+        entity.setAuthors(book.getAuthors());
         entity.setPublishingCompany(book.getPublishingCompany());
 
         return bookRepository.save(entity);
@@ -90,15 +92,22 @@ public class BookService {
             ExcelUtils.createHeaderRow(sheet, headersFile, workbook);
 
             AtomicInteger rowIndex = new AtomicInteger(1);
-            for (Book book : books){
-                Object[] rowData = {
-                       /* getValorData(book.ge),
-                        getValorTexto(book.getCodigo()),
-                        *
-                        */
-                };
+            for (Book book : books) {
+                book.getAuthors().forEach(author -> {
+                    Object[] rowData = {
+                            getTextValue(book.getId()),
+                            getTextValue(book.getIsbn()),
+                            getTextValue(book.getName()),
+                            getCurrencyValue(book.getCost()),
+                            getTextValue(author.getFirstName() + "" + author.getLastName()),
+                            getTextValue(book.getPublishingCompany().getName())
+                    };
 
-                ExcelUtils.populateRow(sheet, rowIndex.getAndIncrement(), rowData);
+                    populateRow(sheet, rowIndex.getAndIncrement(), rowData);
+
+                    setColumnWidth(sheet, rowIndex.get(), 30);
+                });
+
             }
 
             ByteArrayOutputStream out = new ByteArrayOutputStream();

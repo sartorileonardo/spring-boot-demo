@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder(toBuilder = true)
+@Builder
 @Entity
 @Table(name = "book")
 public class Book {
@@ -33,7 +33,7 @@ public class Book {
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_author", insertable = true, updatable = true)
-    private List<Author> author;
+    private List<Author> authors;
 
     @OneToOne
     @JoinColumn(name = "id_publising_company", insertable = true, updatable = true)

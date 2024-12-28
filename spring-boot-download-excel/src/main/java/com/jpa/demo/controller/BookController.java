@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/v1/books")
+@RequestMapping("/books")
 public class BookController {
 
     @Autowired
@@ -65,7 +65,7 @@ public class BookController {
     }
 
     @GetMapping("/report")
-    public  ResponseEntity<byte[]> getBooksReport() {
+    public ResponseEntity<byte[]> getBooksReport() {
         return bookService.getBooksReport();
     }
 

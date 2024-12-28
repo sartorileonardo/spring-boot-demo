@@ -4,6 +4,8 @@ import com.jpa.demo.entity.Author;
 import com.jpa.demo.entity.Book;
 import com.jpa.demo.entity.PublishingCompany;
 import com.jpa.demo.repository.BookRepository;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,6 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.ResponseEntity;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -35,19 +38,17 @@ class BookServiceTest {
     private BookService bookService;
 
     private Book book;
-
     private List<Author> authors;
-
     private PublishingCompany publishingCompany;
 
     @BeforeEach
     public void setup() {
-        //Given
+        // Given
         publishingCompany = PublishingCompany.builder().id(1L).name("ABC").build();
         authors = List.of(Author.builder().id(1L).firstName("Joao").lastName("Silva").build());
         book = Book.builder()
                 .id(1L)
-                .author(authors)
+                .authors(authors)
                 .publishingCompany(publishingCompany)
                 .isbn(UUID.randomUUID().toString())
                 .name("Inteligência artificial")
@@ -56,30 +57,30 @@ class BookServiceTest {
     }
 
     @Test
-    @DisplayName("Should return a list from saved books")
+    @DisplayName("Should return a list of saved books")
     void getAllBooks() {
-        //Given
+        // Given
         given(bookRepository.findAll()).willReturn(List.of(book));
 
-        //When
+        // When
         List<Book> books = bookService.findAll();
 
-        //Then
+        // Then
         assertNotNull(books);
         assertFalse(books.isEmpty());
         assertEquals(1, books.size());
     }
 
     @Test
-    @DisplayName("Should return a existing book")
+    @DisplayName("Should return an existing book")
     public void getOneBook() {
-        //Given
+        // Given
         given(bookRepository.findById(anyLong())).willReturn(Optional.of(book));
 
-        //When
+        // When
         Optional<Book> savedBook = bookService.findById(book.getId());
 
-        //Then
+        // Then
         assertTrue(savedBook.isPresent());
         assertEquals(book.getId(), savedBook.get().getId());
     }
@@ -101,10 +102,8 @@ class BookServiceTest {
         verify(bookRepository).save(any(Book.class));
     }
 
-
-
     @Test
-    @DisplayName("Should update existing book with sucess")
+    @DisplayName("Should update an existing book successfully")
     void updateBook() {
         // Given
         book.setName("updatedBookName");
@@ -124,14 +123,41 @@ class BookServiceTest {
     @Test
     @DisplayName("Should delete an existing book")
     void deleteBook() {
-        //Given
+        // Given
         willDoNothing().given(bookRepository).deleteById(book.getId());
 
-        //When
+        // When
         bookService.deleteById(book.getId());
 
-        //Then
+        // Then
         verify(bookRepository, times(1)).deleteById(book.getId());
     }
 
+    @Test
+    @DisplayName("Should generate a report of books")
+    void getBooksReport() throws Exception {
+        // Given
+        // Simulate a list of books for the report
+        given(bookRepository.findAll()).willReturn(List.of(book));
+
+        // When
+        ResponseEntity<byte[]> response = bookService.getBooksReport();
+
+        // Then
+        assertNotNull(response);
+        assertEquals(200, response.getStatusCodeValue());  // Ensure HTTP Status is OK (200)
+
+        byte[] reportContent = response.getBody();
+        assertNotNull(reportContent);
+        assertTrue(reportContent.length > 0);  // Ensure the report content is not empty
+
+        // Optionally, verify the report content type (Excel file)
+        assertTrue(response.getHeaders().getContentType().includes(org.springframework.http.MediaType.APPLICATION_OCTET_STREAM));
+
+        // Optionally, you can verify the content of the generated report
+        // For instance, if you want to check the first cell's content:
+        try (Workbook workbook = new XSSFWorkbook(new java.io.ByteArrayInputStream(reportContent))) {
+            assertEquals("ID", workbook.getSheetAt(0).getRow(0).getCell(0).getStringCellValue());
+        }
+    }
 }
