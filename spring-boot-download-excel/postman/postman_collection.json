@@ -1,0 +1,190 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Book demo",
+		"_postman_id": "2f85be5e-d02f-14b4-1bfc-255a7020195a",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET ALL",
+			"request": {
+				"url": "https://localhost:8888/v1/books",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET BY ID",
+			"request": {
+				"url": "http://localhost:8888/v1/books/1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "ADD LIVRO",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var responseJSON;",
+							"try {",
+							"    responseJSON = JSON.parse(responseBody); ",
+							"    tests[\"Status equals 201\"] = responseJSON.status === 201;",
+							"}",
+							"catch (e) { }",
+							"tests[\"Body contains status\"] = responseBody.has(\"status\");",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8888/v1/books",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"isbn\": \"612afa371d094850e801fd72\",\n        \"name\": \"Poeira em alto mar\",\n        \"author\": \"Joao da Silva\",\n        \"cost\": 10.75\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE LIVRO",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var responseJSON;",
+							"try {",
+							"    responseJSON = JSON.parse(responseBody); ",
+							"    tests[\"Status equals 201\"] = responseJSON.status === 201;",
+							"}",
+							"catch (e) { }",
+							"tests[\"Body contains status\"] = responseBody.has(\"status\");",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8888/v1/books/1",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"isbn\": \"612afa371d094850e801fd72\",\n        \"name\": \"Poeira em alto mar\",\n        \"author\": \"Joao da Silva\",\n        \"cost\": 10.75\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE LIVRO",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var responseJSON;",
+							"try {",
+							"    responseJSON = JSON.parse(responseBody); ",
+							"    tests[\"Status equals 201\"] = responseJSON.status === 201;",
+							"}",
+							"catch (e) { }",
+							"tests[\"Body contains status\"] = responseBody.has(\"status\");",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8888/v1/books/1",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
