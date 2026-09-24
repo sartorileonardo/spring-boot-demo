@@ -179,7 +179,7 @@ manutenção dos contratos.
 
 [Projeto: spring-boot-swagger-documentation](./spring-boot-swagger-documentation) - documentação de APIs com Swagger/OpenAPI.
 
-## Por que usar Server-Sent Events (SSE)?
+### Por que usar Server-Sent Events (SSE)?
 
 Este projeto demonstra uma implementação simples, prática e leve de Server-Sent
 Events (SSE) utilizando Java, Spring Boot e HTML5 (`EventSource`).
